@@ -1,0 +1,135 @@
+HISTFILE=$XDG_CACHE_HOME/zhistfile
+ZSHDIR=$XDG_CONFIG_HOME/zsh
+HISTSIZE=999999999
+SAVEHIST=1000
+
+autoload -U colors && colors
+if [[ $SSH_CLIENT ]]; then
+	export PROMPT="%f%F{red}%B%n@%M%b%f% %F{cyan}%B [%~]%f %(!.#.>)%b "
+	# Autocomplition
+	# source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+	# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245,underline"
+else
+ 	# export PROMPT="%B%F{cyan}[%2~]%f %(!.#.>)%b "
+	export PROMPT="%F{green}%B[%n@%M%b%f% %F{cyan}%B %2~%f%F{green}]%f%(!.#.%%)%b "
+	# wal fancy colorscheme 
+	# (cat ~/.cache/wal/sequences &)
+
+fi
+if [[ -n $INSIDE_VIFM ]]; then
+	PROMPT="%F{green}%B[%n@%M%b%f% %F{cyan}%B %2~%f%F{green}]%f%(!.#.%%) %F{red}(vifm)%f%b "
+	unset INSIDE_VIFM
+fi
+
+# import git prompt
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=%F{red}%B\$vcs_info_msg_0_%b%f
+# PROMPT=\$vcs_info_msg_0_'%# '
+zstyle ':vcs_info:git:*' formats '%b'
+# setopt autocd		# Automatically cd into typed directory.
+stty stop undef		# Disable ctrl-s to freeze terminal.
+
+# link pasting
+autoload -U url-quote-magic bracketed-paste-magic
+zle -N self-insert url-quote-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+# highlighting 
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# autosuggestions
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+export TERM=xterm-256color
+autoload -Uz compinit
+zmodload zsh/complist
+_comp_options+=(globdots)
+compinit # -d ~/.cache/zsh/zcompdump_$ZSH_VERSION
+# zstyle :compinstall filename $ZDOTDIR/zshrc
+export KEYTIMEOUT=1
+setopt nomatch
+unsetopt beep
+bindkey  "^[[3~"  delete-char
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey -v 
+bindkey -v '^?' backward-delete-char
+zstyle ':completion:*' menu select
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# sane ssh-keys management
+eval $(ssh-agent) > /dev/null
+
+function vicd()
+{
+    local dst="$(command vifm --choose-dir - "$@")"
+    if [ -z "$dst" ]; then
+        echo 'Directory picking cancelled/failed'
+        return 1
+    fi
+    cd "$dst"
+}
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do time $shell -i -c exit; done
+}
+
+
+# ALIASES
+alias ls='ls --color=auto'
+alias grep='grep --color=always'
+alias reblue='sudo systemctl restart bluetooth'
+alias nv='nordvpn '
+alias less='less -r'
+alias as='apt search'
+alias ai='sudo apt install'
+alias tt='tmux attach-session -t 2' \
+	# sudo='doas' \
+	# ps='doas pacman -S ' \
+	startx='startx "$XDG_CONFIG_HOME/X11/xinitrc"' \
+	# -- "$XDG_CONFIG_HOME/X11/xserverrc" vt1 
+alias p='pacman' \
+	s="doas" \
+	sp="doas pacman" \
+	j="journalctl -xe" \
+	cry="gpg --symmetric --cipher-algo aes256 -o" \
+	decry="gpg -d" \
+	vol="du -sh" \
+	sc="scrot \'%d-%m-%Y_$wx$h.png\' -s -e \'mv $f ~/Pictures/\'" \
+	la="ls -A" \
+	ll="ls -lh" \
+	lla="ls -lAh" \
+	wi="nmcli device wifi connect" \
+	code='DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true code'
+alias v='nvim'
+alias bhi="pacmd set-card-profile bluez_card.00_16_94_2A_73_07 a2dp_sink"
+alias blo="pacmd set-card-profile bluez_card.00_16_94_2A_73_07 headset_head_unit"
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/opt/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/opt/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+
+# eval "$(pyenv init --path)"
+# eval "$(pyenv virtualenv-init -)"
+time() {
+	echo gzip --keep big_file.txt  99% cpu 20m40s total 
+}

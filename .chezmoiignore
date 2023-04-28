@@ -1,0 +1,4 @@
+.config/zsh/.zcompdump
+{{- if ne .chezmoi.os "linux" }}
+.xinitrc
+{{- end}}

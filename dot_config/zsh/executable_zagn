@@ -1,0 +1,52 @@
+# platform-agnostic aliases
+if [ -z $EDITOR ]; then
+	EDITOR=nvim
+fi
+if [ -z $CMD_SU ]; then
+	CMD_SU=doas
+fi
+# functions
+sa () {
+	ssh $1 -t 'tmux a || tmux new'
+}
+
+zf(){
+	if [[ -n $1 ]]; then
+		grep "$1" $HISTFILE
+	fi
+}
+
+
+#aliases
+alias yt='yt-dlp'
+alias phs="adb forward tcp:8022 tcp:8022 && ssh localhost -p 8022"
+alias g=git
+alias gs="git status"
+alias gph="git push"
+alias gpl="git pull"
+alias gc="git commit"
+alias gm="git merge"
+alias gl="git log --oneline --all --decorate --graph"
+alias glo="git log"
+alias g="git"
+alias t="tmux a || tmux new"
+alias x=exit
+alias cf=cfiles
+alias sxiv="sxiv -a"
+alias sy="systemctl" \
+      ssy="sudo systemctl" 
+alias f='vifm'
+alias h='htop'
+alias addtogroup='sudo usermod -a -G'
+alias l='less'
+alias ncdu='ncdu --color off'
+alias cal='cal -m'
+
+if [ ! -z $EDITOR ]; then
+	alias v='$EDITOR'
+	alias sv='$CMD_SU $EDITOR'
+else
+	alias v='vi'
+	alias sv='sudo vi'
+fi
+

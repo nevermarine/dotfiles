@@ -1,0 +1,75 @@
+#! /bin/zsh
+# My stuff and all
+export EDITOR='nvim'
+export VISUAL='nvim'
+export BROWSER='firefox'
+export TERMINAL='alacritty'
+export XAUTHORITY="$HOME/.Xauthority"
+# export TERM='alacritty'
+# path+=/opt/miniconda3/bin
+path+=/opt/easyeda
+path+=$HOME/.pyenv/bin path+=$HOME/scripts/path
+#source $ZDOTDIR/.zshrc
+export MOST_INITFILE="$XDG_CONFIG_HOME"/mostrc
+
+# Other envs
+WALLPAPERS_DIR=/usr/share/backgrounds
+SFW_WALLPAPERS_DIR=$WALLPAPERS_DIR/sfw
+ANIME_WALLPAPERS_DIR=$WALLPAPERS_DIR/anime
+CUR_PAPE=$XDG_CONFIG_HOME/current-pape
+
+if [[ -d "$XDG_CONFIG_HOME"/doom ]]
+then
+	path+=$XDG_CONFIG_HOME/emacs/bin 
+fi 
+if [[ -d "$HOME"/scripts/path ]] 
+then 
+	path+="$HOME"/scripts/path
+fi
+export PATH
+
+# use function sa from zagn file instead
+# if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
+#     exec tmux new-session -A -s mysession
+# fi
+if [[ -f $ZDOTDIR/zagn ]]; then
+	source $ZDOTDIR/zagn
+fi
+
+# X.Org autostart
+# if [[ $TTY = "/dev/tty1" ]]; then
+# 	startx 
+if  [[ $TTY = "/dev/tty2" ]]; then
+	exec tmux new-session -A -s tty2session
+	# exec tmux a || tmux new
+fi
+
+export CONDARC="$XDG_CONFIG_HOME/conda/condarc"
+setopt AUTO_PUSHD
+
+# export if needed
+if [[ -f $ZDOTDIR/zarch ]]; then
+	source $ZDOTDIR/zarch
+fi
+
+if [[ -d $WALLPAPERS_DIR ]]; then
+	export WALLPAPERS_DIR
+	if [[ -d $ANIME_WALLPAPERS_DIR ]]; then
+		export ANIME_WALLPAPERS_DIR
+	fi
+	if [[ -d $SFW_WALLPAPERS_DIR ]]; then
+		export SFW_WALLPAPERS_DIR
+	fi
+	if [[ -f $CUR_PAPE ]]; then
+		export CUR_PAPE
+	fi
+fi
+
+# Technical envs
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export SERVICE6_SUDO='doas'
+ export SERVICE6_LIST_SUDO='doas'
+ source $ZDOTDIR/zs6
+. "/home/max/.local/share/cargo/env"

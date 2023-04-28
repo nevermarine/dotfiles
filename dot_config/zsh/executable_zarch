@@ -1,0 +1,6 @@
+AUR_MANAGER="yay"
+alias au=$AUR_MANAGER
+alias aus='$AUR_MANAGER -S'
+alias auss='$AUR_MANAGER -Ss'
+alias pmss='pacman -Ss'
+alias pms='$CMD_SU pacman -S'
