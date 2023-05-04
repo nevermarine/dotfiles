@@ -1,0 +1,16 @@
+export LC_ALL=en_US.UTF-8
+export LC_TYPE=en_US.UTF-8
+export TERMINAL=alacritty
+export BROWSER=firefox
+export EDITOR=nvim
+
+export WALLPAPERS_DIR=/usr/share/backgrounds
+export SFW_WALLPAPERS_DIR=/usr/share/backgrounds/sfw
+export ANIME_WALLPAPERS_DIR=/usr/share/backgrounds/anime
+
+xidle -timeout 300 -program '/usr/local/bin/userlock' &
+#xinput set-prop /dev/wsmouse "Device Accel Constant Deceleration" 0.4
+xset b off
+xset r rate 230 45
+picom --vsync &
+exec i3

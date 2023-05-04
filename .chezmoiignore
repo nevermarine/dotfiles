@@ -2,3 +2,6 @@
 {{- if ne .chezmoi.os "linux" }}
 .xinitrc
 {{- end}}
+{{- if ne .chezmoi.os "openbsd" }}
+.xsession
+{{end}}
