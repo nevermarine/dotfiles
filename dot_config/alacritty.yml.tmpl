@@ -1,0 +1,117 @@
+font:
+  normal:
+    #family: Terminus 
+    #family: Iosevka
+    #family: cherry
+    #family: gohufont
+    #family: Anonymous Pro
+    family: Fantasque Sans Mono
+  size: 10
+
+# background_opacity: 0.8
+window:
+  #opacity: 0.9
+  opacity: 1
+# cursor:
+#   style:
+#     vi_mode_style:
+#       shape: Underline
+env:
+  TERM: xterm-256color
+{{- if eq .chezmoi.os "openbsd"}}
+  LC_CTYPE: en_US.UTF-8
+{{ end }}
+# Colors (Molokai Dark)
+# colors:
+
+# schemes:
+#   tomorrow: &tomorrow
+#     # Default colors
+#     primary:
+#       background: '#1d1f21'
+#       foreground: '#c5c8c6'
+
+#     # Colors the cursor will use if `custom_cursor_colors` is true
+#     cursor:
+#       text: '#1d1f21'
+#       cursor: '#ffffff'
+
+#     # Normal colors
+#     normal:
+#       black:   '#1d1f21'
+#       red:     '#cc6666'
+#       green:   '#b5bd68'
+#       yellow:  '#e6c547'
+#       blue:    '#81a2be'
+#       magenta: '#b294bb'
+#       cyan:    '#70c0ba'
+#       white:   '#373b41'
+
+#     # Bright colors
+#     bright:
+#       black:   '#666666'
+#       red:     '#ff3334'
+#       green:   '#9ec400'
+#       yellow:  '#f0c674'
+#       blue:    '#81a2be'
+#       magenta: '#b77ee0'
+#       cyan:    '#54ced6'
+#       white:   '#282a2e'
+
+#   mokokai: &monokai  
+#    primary:
+#      background: '#1B1D1E'
+#      foreground: '#F8F8F2'
+#    # Normal colors
+#    normal:
+#      black:   '#333333'
+#      red:     '#C4265E'
+#      green:   '#86B42B'
+#      yellow:  '#B3B42B'
+#      blue:    '#6A7EC8'
+#      magenta: '#8C6BC8'
+#      cyan:    '#56ADBC'
+#      white:   '#E3E3DD'
+#    # Bright colors
+#    bright:
+#      black:   '#666666'
+#      red:     '#F92672'
+#      green:   '#A6E22E'
+#      yellow:  '#E2E22E'
+#      blue:    '#819AFF'
+#      magenta: '#AE81FF'
+#      cyan:    '#66D9EF'
+#      white:   '#F8F8F2'
+
+
+# colors: *monokai
+# Colors (Gruvbox light)
+#colors:
+#  # Default colors
+#  primary:
+#    # hard contrast: background = '0xf9f5d7'
+#    background: '0xfbf1c7'
+#    # soft contrast: background = '0xf2e5bc'
+#    foreground: '0x3c3836'
+#
+#  # Normal colors
+#  normal:
+#    black:   '0xfbf1c7'
+#    red:     '0xcc241d'
+#    green:   '0x98971a'
+#    yellow:  '0xd79921'
+#    blue:    '0x458588'
+#    magenta: '0xb16286'
+#    cyan:    '0x689d6a'
+#    white:   '0x7c6f64'
+#
+#  # Bright colors
+#  bright:
+#    black:   '0x928374'
+#    red:     '0x9d0006'
+#    green:   '0x79740e'
+#    yellow:  '0xb57614'
+#    blue:    '0x076678'
+#    magenta: '0x8f3f71'
+#    cyan:    '0x427b58'
+#    white:   '0x3c3836'
