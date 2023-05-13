@@ -1,0 +1,10 @@
+{{- $inet_backend := promptStringOnce . "inet_backend" "Specify network backend" -}}
+{{- $i3bar_view := promptStringOnce . "i3bar_view" "Specify i3 status view (old or new)" -}}
+
+[data]
+inet_backend = {{ $inet_backend | quote }}
+term_font = "Terminus"
+term_font_size = "11"
+i3bar_view = {{ $i3bar_view | quote }}
+i3bar_font = "Terminus"
+i3bar_font_size = "12"

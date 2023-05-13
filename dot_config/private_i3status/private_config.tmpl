@@ -1,0 +1,5 @@
+{{- if eq .i3bar_view "old" -}}
+{{   include "dot_config/private_i3status/config_old" }}
+{{- else -}}
+{{   include "dot_config/private_i3status/config_new" }}
+{{- end -}}
